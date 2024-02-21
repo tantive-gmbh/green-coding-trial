@@ -1,0 +1,39 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET Test Execution
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Eco CI Energy Estimation - Initialize
+      uses: green-coding-solutions/eco-ci-energy-estimation@v2
+      with:
+        task: start-measurement
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./HighLoad.Tests/HighLoad.Tests.csproj
+    - name: Build
+      run: dotnet build --no-restore ./HighLoad.Tests/HighLoad.Tests.csproj
+    - name: Eco CI Energy Estimation - Get Measurement
+      uses: green-coding-solutions/eco-ci-energy-estimation@v2
+      with:
+        task: get-measurement
+
+    - name: Test
+      run: dotnet test --no-build --verbosity normal ./HighLoad.Tests/HighLoad.Tests.csproj
+
+    - name: Eco CI Energy Estimation - End Measurement
+      uses: green-coding-solutions/eco-ci-energy-estimation@v2
+      with:
+        task: display-results

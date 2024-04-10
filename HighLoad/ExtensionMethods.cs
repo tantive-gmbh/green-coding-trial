@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -49,17 +45,23 @@ public static class ExtensionMethods
     public static DateTime? AsDateN(this object toDate)
     {
         if (toDate.AsString().IsEmpty())
+        {
             return null;
+        }
+
         if (toDate is DateTime)
+        {
             return (DateTime?)toDate;
+        }
+
         var formats = new List<string>
-            {
-                "yyyy-MM-dd",
-                "dd.MM.yyyy",
-                "MM/dd/yyyy",
-                CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern
-            };
-        var result = DateTime.TryParseExact(toDate.AsString(), formats.ToArray(), CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dummy) ? (DateTime?)dummy : null;
+        {
+            "yyyy-MM-dd",
+            "dd.MM.yyyy",
+            "MM/dd/yyyy",
+            CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern
+        };
+        var result = DateTime.TryParseExact(toDate.AsString(), formats.ToArray(), CultureInfo.InvariantCulture, DateTimeStyles.None, out var dummy) ? (DateTime?)dummy : null;
         return result;
     }
 
@@ -119,7 +121,10 @@ public static class ExtensionMethods
         try
         {
             if (toFloat == null)
+            {
                 return alternativeValue;
+            }
+
             return float.TryParse(toFloat.AsString(), out float output) ? output : alternativeValue;
         }
         catch
@@ -147,12 +152,21 @@ public static class ExtensionMethods
         try
         {
             if (toBool == null)
+            {
                 return alternativeValue;
+            }
+
             string asString = toBool.AsString();
             if (asString.IsEmpty())
+            {
                 return false;
+            }
+
             if (bool.TryParse(asString, out bool result))
+            {
                 return result;
+            }
+
             switch (asString.AsInt(int.MinValue))
             {
                 case 0:
@@ -195,6 +209,7 @@ public static class ExtensionMethods
                 result = $"{message.Substring(0, length)}{postfix}";
             }
         }
+
         return result;
     }
 
@@ -211,12 +226,16 @@ public static class ExtensionMethods
     public static string Reverse(this string input)
     {
         if (input.IsEmpty())
+        {
             return string.Empty;
+        }
+
         var result = new StringBuilder();
         for (int i = input.Length - 1; i >= 0; i--)
         {
             result.Append(input[i]);
         }
+
         return result.ToString();
     }
 
@@ -229,18 +248,19 @@ public static class ExtensionMethods
     {
         var hash = new StringBuilder();
         var md5Provider = MD5.Create();
-        var bytes = md5Provider.ComputeHash(new UTF8Encoding().GetBytes(input.AsString()));
+        byte[] bytes = md5Provider.ComputeHash(new UTF8Encoding().GetBytes(input.AsString()));
 
         foreach (byte t in bytes)
         {
             hash.Append(t.ToString("x2"));
         }
+
         return hash.ToString();
     }
 
     public static string Checksum(this string input)
     {
-        var hash = input.ToMD5();
+        string hash = input.ToMD5();
         hash = $"{hash}{hash.Reverse()}".ToMD5();
         hash = $"{hash.Reverse()}{hash}".ToMD5();
         hash = $"{hash}{hash.Reverse()}".ToMD5();
@@ -252,12 +272,17 @@ public static class ExtensionMethods
 
     public static string Multiply(this string input, int count)
     {
-        if (input.IsEmpty()) return string.Empty;
+        if (input.IsEmpty())
+        {
+            return string.Empty;
+        }
+
         var sb = new List<string>();
         for (int i = 0; i < count; i++)
         {
             sb.Add(input);
         }
+
         return string.Join("", sb);
     }
     #endregion
@@ -273,11 +298,13 @@ public static class ExtensionMethods
             {
                 files.AddRange(GetAllFiles(directory.FullName));
             }
+
             foreach (var file in di.GetFiles())
             {
                 files.Add(file.FullName);
             }
         }
+
         return files;
     }
 

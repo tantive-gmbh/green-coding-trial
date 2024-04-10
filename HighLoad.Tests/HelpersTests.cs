@@ -4,7 +4,7 @@ namespace HighLoad.Tests;
 public class HelpersTests
 {
     private Helper m_Helper => Helper.Instance;
-    private string m_HelperTag = Helper.Instance.IdentityTag;
+    private readonly string m_HelperTag = Helper.Instance.IdentityTag;
 
     [TestInitialize]
     public void TestSetup()

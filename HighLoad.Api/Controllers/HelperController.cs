@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using HighLoad.Api.Models;
 using System.Diagnostics;
+using HighLoad.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HighLoad.Api.Controllers;
 

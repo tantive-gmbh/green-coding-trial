@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -16,7 +15,7 @@ public class ExtensionMethodTests
         string alternativeValue = "alternative";
 
         // Act
-        var result = firstChoice.Otherwise(alternativeValue);
+        string result = firstChoice.Otherwise(alternativeValue);
 
         // Assert
         Assert.AreEqual(alternativeValue, result);
@@ -29,7 +28,7 @@ public class ExtensionMethodTests
         object obj = null;
 
         // Act
-        var result = obj.AsString();
+        string result = obj.AsString();
 
         // Assert
         Assert.AreEqual(string.Empty, result);
@@ -40,10 +39,10 @@ public class ExtensionMethodTests
     {
         // Arrange
         object obj = null;
-        var alternativeValue = "alternative";
+        string alternativeValue = "alternative";
 
         // Act
-        var result = obj.AsString(alternativeValue);
+        string result = obj.AsString(alternativeValue);
 
         // Assert
         Assert.AreEqual(alternativeValue, result);
@@ -55,7 +54,7 @@ public class ExtensionMethodTests
         //Arrange
         object validDate = "2022-01-01";
         object invalidDate = "not a date";
-        DateTime expectedDate = new DateTime(2022, 01, 01);
+        var expectedDate = new DateTime(2022, 01, 01);
 
         //Act
         var resultValid = validDate.AsDateN();
@@ -73,8 +72,8 @@ public class ExtensionMethodTests
         object validDate = "2022-01-01";
         object invalidDate = "not a date";
 
-        DateTime expectedDate = new DateTime(2022, 01, 01);
-        DateTime expectedMinDate = DateTime.MinValue;
+        var expectedDate = new DateTime(2022, 01, 01);
+        var expectedMinDate = DateTime.MinValue;
 
         // Act
         var resultValid = validDate.AsDate();
@@ -230,13 +229,16 @@ public class ExtensionMethodTests
     [TestMethod]
     public void TestToMD5()
     {
-        var input = "Hello World";
-        var data = MD5.HashData(Encoding.Default.GetBytes(input));
+        string input = "Hello World";
+        byte[] data = MD5.HashData(Encoding.Default.GetBytes(input));
 
         var sBuilder = new StringBuilder();
         for (int i = 0; i < data.Length; i++)
+        {
             sBuilder.Append(data[i].ToString("x2"));
-        var expectedResult = sBuilder.ToString();
+        }
+
+        string expectedResult = sBuilder.ToString();
 
         Assert.AreEqual(expectedResult, input.ToMD5());
     }
@@ -244,11 +246,11 @@ public class ExtensionMethodTests
     [TestMethod]
     public void TestChecksum()
     {
-        var input = "Hello World";
-        var checksum1 = input.Checksum();
+        string input = "Hello World";
+        string checksum1 = input.Checksum();
 
         input = "Hello Universe";
-        var checksum2 = input.Checksum();
+        string checksum2 = input.Checksum();
 
         Assert.AreNotEqual(checksum1, checksum2);
         Assert.AreEqual(32, checksum1.Length);
@@ -257,8 +259,8 @@ public class ExtensionMethodTests
     [TestMethod]
     public void TestMultiply()
     {
-        var input = "Hello World";
-        var actual = input.Multiply(5);
+        string input = "Hello World";
+        string actual = input.Multiply(5);
 
         Assert.AreEqual(55, actual.Length);
         Assert.AreEqual("Hello WorldHello WorldHello WorldHello WorldHello World", actual);

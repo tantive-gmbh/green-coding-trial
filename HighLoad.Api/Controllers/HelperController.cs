@@ -35,6 +35,7 @@ public class HelperController : ControllerBase
     public int GetCurrentCount() => _Helper.Dict.Count;
 
     [HttpGet("ident")]
+    [HttpGet("")]
     public string GetCurrentIdentity()
     {
         var process = Process.GetCurrentProcess();

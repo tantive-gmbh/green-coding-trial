@@ -12,10 +12,7 @@
         "/consoleloggerparameters:NoSummary;ForceNoAlign"
       ],
       "problemMatcher": "$msCompile",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "isBuildCommand": true
     },
     {
       "label": "build Console",
@@ -27,7 +24,12 @@
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary;ForceNoAlign"
       ],
-      "problemMatcher": "$msCompile"
+      "problemMatcher": "$msCompile",
+      "isBuildCommand": true,
+      "group": {
+        "isDefault": true,
+        "kind": "build"
+      }
     },
     {
       "label": "build Api",

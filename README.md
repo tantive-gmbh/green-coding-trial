@@ -13,13 +13,13 @@ docker build -t highload-image:latest -f Dockerfile .
 ### Run a single instance
 
 ```bash
-docker run -it --rm  highload-image 60 8
+docker run --name highload-once --rm  highload-image 60 8
 ```
 
 ### Run interactive
 
 ```bash
-docker run -it --rm  highload-image
+docker run -it --name highload --rm highload-image
 ```
 
 ### Remove image

@@ -4,10 +4,10 @@ networks:
 
 services:
   # There is no container_name directive. All services keys act directly as container names
-  highload-container:
+  highload-container-def:
     # If you build your file with docker compose in the example above this image name should be the one you have now locally
-    image: highload-image
-    container_name: highload
+    image: ghcr.io/tantive-nessi/pluralsight-highload:console
+    container_name: highload-console
     environment:
       - MADE_UP_VARIABLE=SomeValue
     # networks must be explicitly stated in each service
@@ -16,7 +16,7 @@ services:
 
 flow:
   - name: Small-Stress
-    container: highload-container
+    container: highload-container-def
     commands:
       - type: console
         command: HighLoad.Console 80 6

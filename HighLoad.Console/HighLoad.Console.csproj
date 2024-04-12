@@ -7,6 +7,16 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <IsPublishable>true</IsPublishable>
+    <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+    <WebPublishMethod>Container</WebPublishMethod>
+    <ContainerRegistry>ghcr.io</ContainerRegistry>
+    <ContainerRepository>tantive-nessi/pluralsight-highload</ContainerRepository>
+    <ContainerImageTag>console</ContainerImageTag>
+    <ContainerBaseImage>mcr.microsoft.com/dotnet/aspnet:8.0</ContainerBaseImage>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\HighLoad\HighLoad.csproj" />
   </ItemGroup>

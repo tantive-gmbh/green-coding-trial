@@ -56,14 +56,19 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "publish",
+      "label": "publish Console",
       "command": "dotnet",
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/HighLoad.Api/HighLoad.Api.csproj",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        "${workspaceFolder}/HighLoad.Console/HighLoad.Console.csproj",
+        "--os",
+        "linux",
+        "--arch",
+        "x64",
+        "/t:PublishContainer",
+        "-c",
+        "Release"
       ],
       "problemMatcher": "$msCompile"
     },

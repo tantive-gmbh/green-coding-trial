@@ -13,6 +13,23 @@
         "/consoleloggerparameters:NoSummary;ForceNoAlign"
       ],
       "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "publish",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/HighLoad.Console.csproj",
+        "--os",
+        "linux",
+        "--arch",
+        "x64",
+        "/t:PublishContainer",
+        "-c",
+        "Release"
+      ],
+      "problemMatcher": "$msCompile"
     }
   ]
 }

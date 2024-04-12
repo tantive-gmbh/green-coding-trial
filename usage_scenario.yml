@@ -1,3 +1,8 @@
+name: HighLoad Test
+author: Udo Nesshoever
+version: 1
+description: Test green measurement with personalized software
+
 # We need an explicit networks part, as we do not auto-generate networks for containers
 networks:
   highload-network:

@@ -21,7 +21,7 @@ services:
 
 flow:
   - name: Small-Stress
-    container: highload-container-def
+    container: highload-console
     commands:
       - type: console
         command: HighLoad.Console 80 6

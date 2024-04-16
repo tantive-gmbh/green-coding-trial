@@ -16,6 +16,9 @@ publish /HighLoad.Console/HighLoad.Console.csproj --os linux --arch x64 /t:Publi
 # create the image
 docker build -t highload-image:latest -f Dockerfile .
 
+# just create a container
+docker create --name highload-console highload-image:latest
+
 # Run a single instance
 docker run --name highload-once --rm  highload-image 60 8
 

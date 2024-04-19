@@ -66,6 +66,7 @@ internal class Program
         {
             continueRun = int.TryParse(args[0], out entryCount) && int.TryParse(args[1], out taskCount);
         }
+
         bool singleRun = continueRun;
         if (!continueRun)
         {
@@ -83,6 +84,6 @@ internal class Program
             continueRun = QueryParameters(out entryCount, out taskCount);
         }
 
-        Log($"Execution ended", true, true);
+        Log("Execution ended", true, true);
     }
 }

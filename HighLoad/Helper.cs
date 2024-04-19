@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text;
+using HighLoad.Models;
 
 namespace HighLoad;
 
@@ -15,6 +16,8 @@ public sealed class Helper
     }
 
     public readonly string IdentityTag = $"Created at {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss.fff} in process {Process.GetCurrentProcess().Id}";
+    private InitializationStatus m_LastInitializationStatus;
+    public InitializationStatus LastInitializationStatus => m_LastInitializationStatus;
 
     private Helper()
     {
@@ -28,6 +31,7 @@ public sealed class Helper
     public void Reset()
     {
         m_Dict = new ConcurrentDictionary<Guid, string>();
+        m_LastInitializationStatus = null;
     }
 
     private (Guid, string) CreateString()
@@ -51,8 +55,10 @@ public sealed class Helper
         }
     }
 
-    public int Initialize(int entryCount = 100, int taskCount = 1)
+    public InitializationStatus Initialize(int entryCount = 100, int taskCount = 1)
     {
+        var sw = new Stopwatch();
+        sw.Start();
         var tasks = new Task[taskCount];
 
         for (int i = 0; i < taskCount; i++)
@@ -61,6 +67,9 @@ public sealed class Helper
         }
 
         Task.WaitAll(tasks);
-        return m_Dict.Count;
+        sw.Stop();
+
+        m_LastInitializationStatus = new InitializationStatus(sw.Elapsed, entryCount, taskCount, m_Dict.Count);
+        return m_LastInitializationStatus;
     }
 }

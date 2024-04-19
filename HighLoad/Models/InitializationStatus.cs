@@ -1,4 +1,4 @@
-namespace HighLoad.Api.Models;
+namespace HighLoad.Models;
 
 public class InitializationStatus
 {

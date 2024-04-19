@@ -19,7 +19,7 @@ public class HelpersTests
         Assert.AreEqual(0, m_Helper.Dict.Count);
 
         // Act
-        int actual = m_Helper.Initialize();
+        int actual = m_Helper.Initialize().TotalCount;
 
         // Assert
         Assert.AreEqual(100, actual);
@@ -33,7 +33,7 @@ public class HelpersTests
         int entryCount = 200;
 
         // Act
-        int actual = m_Helper.Initialize(entryCount, taskCount);
+        int actual = m_Helper.Initialize(entryCount, taskCount).TotalCount;
 
         // Assert
         Assert.AreEqual(taskCount * entryCount, actual);
@@ -42,7 +42,7 @@ public class HelpersTests
     private int Init(int task, int entry)
     {
         m_Helper.Reset();
-        return m_Helper.Initialize(entry, task);
+        return m_Helper.Initialize(entry, task).TotalCount;
     }
 
     [TestMethod]

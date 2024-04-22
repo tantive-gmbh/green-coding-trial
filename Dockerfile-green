@@ -6,10 +6,14 @@ COPY . ./
 # Restore as distinct layers
 RUN dotnet restore 'HighLoad App.sln'
 # Build and publish a release
-RUN dotnet publish -c Release -o PublishOutput ./HighLoad.Console/HighLoad.Console.csproj
+RUN dotnet publish -c Release -o PublishOutput ./HighLoad.Api/HighLoad.Api.csproj
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
+RUN apt update && apt install -y curl
 WORKDIR /App
 COPY --from=build-env /BuildIt/PublishOutput .
-ENTRYPOINT ["/bin/bash"]
+
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "HighLoad.Api.dll"]

@@ -73,6 +73,23 @@
       "problemMatcher": "$msCompile"
     },
     {
+      "label": "publish Api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/HighLoad.Api/HighLoad.Api.csproj",
+        "--os",
+        "linux",
+        "--arch",
+        "x64",
+        "/t:PublishContainer",
+        "-c",
+        "Release"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
       "label": "watch console",
       "command": "dotnet",
       "type": "process",

@@ -7,10 +7,16 @@ This is a test project to create some high load on both, CPU and memory to have 
 Using the container related project settings, the following command will actually upload a 'dockerized' version to the GitHub CR. [More infos](https://laurentkempe.com/2023/10/30/publish-dotnet-docker-images-using-dotnet-sdk-and-github-actions/)
 
 ```bash
+# Console
 publish /HighLoad.Console/HighLoad.Console.csproj --os linux --arch x64 /t:PublishContainer -c Release
+
+# API
+publish /HighLoad.Api/HighLoad.Api.csproj --os linux --arch x64 /t:PublishContainer -c Release
 ```
 
 ## Use docker
+
+### Console
 
 ```bash
 # create the image
@@ -27,6 +33,24 @@ docker run -it --name highload --rm highload-image
 
 # Remove image
 docker rmi  highload-image
+# optionally
+undangle
+```
+
+### API
+
+```bash
+# create the image
+docker build -t highload:api -f Dockerfile-green .
+
+# just create a container
+docker create --name highload-api highload:api
+
+# Run interactive
+docker run -it --name highload-api --rm highload:api
+
+# Remove image
+docker rmi  highload-api
 # optionally
 undangle
 ```

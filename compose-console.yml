@@ -2,9 +2,9 @@ services:
   high-load:
     build:
       context: .
-      dockerfile: Dockerfile-green
-    container_name: highload
-    image: highload-imagge
+      dockerfile: Dockerfile-console
+    container_name: highload-console
+    image: highload:console
     environment:
       - MADE_UP_VARIABLE=SomeValue
     # expose:

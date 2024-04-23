@@ -36,7 +36,7 @@ flow:
     container: highload-api
     commands:
       - type: console
-        command: HighLoad.Console 80 6
+        command: "curl -X 'POST' 'http://localhost/init?itemCount=200&taskCount=10' -H 'accept: text/plain' -d ''"
         note: Starting a little stress
 
 compose-file:

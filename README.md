@@ -54,3 +54,21 @@ docker rmi  highload-api
 # optionally
 undangle
 ```
+
+### API with compose
+
+```bash
+# create the image
+docker compose -f compose-api.yml create
+
+# start it
+docker start highload-api
+
+# stop it
+docker stop highload-api
+
+docker rm highload-api && docker rmi highload:api
+
+# optionally
+undangle
+```

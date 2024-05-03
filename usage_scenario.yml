@@ -17,7 +17,7 @@ services:
       - "80:80"
 
 flow:
-  - name: Stress Tests
+  - name: Stress Test 200-10
     container: highload-api-cont
     commands:
       - type: console
@@ -32,6 +32,9 @@ flow:
         note: Reset
         log-stderr: True
         log-stdout: True
+  - name: Stress Test 200-100
+    container: highload-api-cont
+    commands:
       - type: console
         command: curl -X 'POST' 'http://localhost/init?itemCount=200&taskCount=100' -H 'accept:text/plain' -d ''
         shell: bash
@@ -44,6 +47,9 @@ flow:
         note: Reset again
         log-stderr: True
         log-stdout: True
+  - name: Stress Test 2000-50
+    container: highload-api-cont
+    commands:
       - type: console
         command: curl -X 'POST' 'http://localhost/init?itemCount=2000&taskCount=50' -H 'accept:text/plain' -d ''
         shell: bash

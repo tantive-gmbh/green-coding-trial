@@ -17,12 +17,36 @@ services:
       - "80:80"
 
 flow:
-  - name: Small-Stress
+  - name: Stress Tests
     container: highload-api-cont
     commands:
       - type: console
         command: curl -X 'POST' 'http://localhost/init?itemCount=200&taskCount=10' -H 'accept:text/plain' -d ''
         shell: bash
-        note: Starting a little stress
+        note: 200 Items, 10 tasks
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: curl -X 'POST' 'http://localhost/reset' -H 'accept:text/plain' -d ''
+        shell: bash
+        note: Reset
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: curl -X 'POST' 'http://localhost/init?itemCount=200&taskCount=100' -H 'accept:text/plain' -d ''
+        shell: bash
+        note: 200 Items, 100 tasks
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: curl -X 'POST' 'http://localhost/reset' -H 'accept:text/plain' -d ''
+        shell: bash
+        note: Reset again
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: curl -X 'POST' 'http://localhost/init?itemCount=2000&taskCount=50' -H 'accept:text/plain' -d ''
+        shell: bash
+        note: Heavy load with 2000 Items, 50 tasks
         log-stderr: True
         log-stdout: True

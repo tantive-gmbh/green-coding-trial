@@ -3,9 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-api
-    container_name: highload-api
     image: highload:api
-    # environment:
-    #   - MADE_UP_VARIABLE=SomeValue
     ports:
       - "80:80"

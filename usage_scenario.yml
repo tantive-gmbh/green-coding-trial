@@ -8,24 +8,21 @@ networks:
   highload-network:
 
 services:
-  # There is no container_name directive. All services keys act directly as container names
-  highload-container-def:
-    # If you build your file with docker compose in the example above this image name should be the one you have now locally
+  highload-api-:cont:
+    build:
+      context: .
+      dockerfile: Dockerfile-api
     image: highload:api
-    container_name: highload-api-cont
-    # environment:
-    #   - MADE_UP_VARIABLE=SomeValue
-    # networks must be explicitly stated in each service
-    networks:
-      - highload-network
+    ports:
+      - "80:80"
 
 flow:
   - name: Small-Stress
     container: highload-api-cont
     commands:
       - type: console
-        command: "curl -X 'POST' 'http://localhost/init?itemCount=200&taskCount=10' -H 'accept: text/plain' -d ''"
+        command: curl -X 'POST' 'http://localhost/init?itemCount=200&taskCount=10' -H 'accept:text/plain' -d ''
+        shell: bash
         note: Starting a little stress
-
-compose-file:
-  !include compose-api.yml
+        log-stderr: True
+        log-stdout: True

@@ -8,7 +8,7 @@ networks:
   highload-network:
 
 services:
-  highload-api-:cont:
+  highload-api-cont:
     build:
       context: .
       dockerfile: Dockerfile-api

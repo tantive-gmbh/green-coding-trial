@@ -3,7 +3,6 @@ author: Udo Nesshoever
 version: 1
 description: Test green measurement with personalized software
 
-# We need an explicit networks part, as we do not auto-generate networks for containers
 networks:
   highload-network:
 
@@ -32,6 +31,15 @@ flow:
         note: Reset
         log-stderr: True
         log-stdout: True
+      - type: console
+        command: sleep 300
+        note: Sleeping for 5 minutes
+      - type: console
+        command: curl -X 'POST' 'http://localhost/reset' -H 'accept:text/plain' -d ''
+        shell: bash
+        note: Reset again
+        log-stderr: True
+        log-stdout: True
   - name: Stress Test 200-100
     container: highload-api-cont
     commands:
@@ -41,6 +49,9 @@ flow:
         note: 200 Items, 100 tasks
         log-stderr: True
         log-stdout: True
+      - type: console
+        command: sleep 300
+        note: Sleeping for 5 minutes
       - type: console
         command: curl -X 'POST' 'http://localhost/reset' -H 'accept:text/plain' -d ''
         shell: bash
@@ -54,5 +65,41 @@ flow:
         command: curl -X 'POST' 'http://localhost/init?itemCount=2000&taskCount=50' -H 'accept:text/plain' -d ''
         shell: bash
         note: Heavy load with 2000 Items, 50 tasks
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: sleep 300
+        note: Sleeping for 5 minutes
+      - type: console
+        command: curl -X 'POST' 'http://localhost/reset' -H 'accept:text/plain' -d ''
+        shell: bash
+        note: Reset finally
+        log-stderr: True
+        log-stdout: True
+  - name: Exert with 200 tasks and a limit of 100
+    container: highload-api-cont
+    commands:
+      - type: console
+        command: curl -X 'POST' 'http://localhost:8888/exert?count=200&limit=100&waitForIt=false' -H 'accept:\ */*' -d ''
+        shell: bash
+        note: Trigger 1
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: curl -X 'POST' 'http://localhost:8888/exert?count=200&limit=100&waitForIt=false' -H 'accept:\ */*' -d ''
+        shell: bash
+        note: Trigger 2
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: curl -X 'POST' 'http://localhost:8888/exert?count=200&limit=100&waitForIt=false' -H 'accept:\ */*' -d ''
+        shell: bash
+        note: Trigger 3
+        log-stderr: True
+        log-stdout: True
+      - type: console
+        command: curl -X 'POST' 'http://localhost:8888/exert?count=200&limit=100&waitForIt=true' -H 'accept:\ */*' -d ''
+        shell: bash
+        note: Trigger last
         log-stderr: True
         log-stdout: True

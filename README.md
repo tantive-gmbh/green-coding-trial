@@ -33,8 +33,6 @@ docker run -it --name highload --rm highload-image
 
 # Remove image
 docker rmi  highload-image
-# optionally
-undangle
 ```
 
 ### API
@@ -51,8 +49,6 @@ docker run -it --name highload-api --rm highload:api
 
 # Remove image
 docker rmi  highload-api
-# optionally
-undangle
 ```
 
 ### API with compose
@@ -68,7 +64,4 @@ docker start highload-api
 docker stop highload-api
 
 docker rm highload-api && docker rmi highload:api
-
-# optionally
-undangle
 ```

@@ -11,7 +11,9 @@
       "preLaunchTask": "build Console",
       // If you have changed target frameworks, make sure to update the program path.
       "program": "${workspaceFolder}/HighLoad.Console/bin/Debug/net8.0/HighLoad.Console.dll",
-      "args": [],
+      "args": [
+        "exert"
+      ],
       "cwd": "${workspaceFolder}/HighLoad.Console",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
       "console": "externalTerminal",

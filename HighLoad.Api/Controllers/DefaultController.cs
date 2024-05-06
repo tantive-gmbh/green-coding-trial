@@ -44,4 +44,15 @@ public class DefaultController : ControllerBase
         m_Logger.LogDebug("[{0:yyyy-MM-dd HH:mm:ss.fff}] {1}", DateTime.UtcNow, result);
         return result;
     }
+
+    // -------------------------------------------------------------------------
+
+    [HttpPost("exert")]
+    public StatusCodeResult ExertTheMachine(int count, int limit, bool waitForIt = false)
+    {
+        m_Helper.ExertTheMachine(count, limit, waitForIt);
+        return Ok();
+    }
+
+
 }

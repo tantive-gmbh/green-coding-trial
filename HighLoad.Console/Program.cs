@@ -50,38 +50,50 @@ internal class Program
         Log($"Helper instance: {helper.IdentityTag}", true, true);
 
         var sw = new Stopwatch();
-        Action<int, int> runInit = (e, t) =>
+        if (args?.Length == 1 && args[0] == "exert")
         {
-            helper.Reset();
-            Log($"Initializing {entryCount} entries using {taskCount} tasks.", false);
+            Log($"Trying to put a strain on the CPU.", false);
             sw.Start();
-            helper.Initialize(entryCount, taskCount);
+            helper.ExertTheMachine(1000, 20, true);
             sw.Stop();
-            Log($" This resulted in {helper.Dict.Count} entries. It took {sw.ElapsedMilliseconds:D2}ms");
+            Log($" Exerting took {sw.ElapsedMilliseconds:D2}ms");
             sw.Reset();
-        };
-
-        bool continueRun = false;
-        if (args?.Length == 2)
-        {
-            continueRun = int.TryParse(args[0], out entryCount) && int.TryParse(args[1], out taskCount);
         }
-
-        bool singleRun = continueRun;
-        if (!continueRun)
+        else
         {
-            continueRun = QueryParameters(out entryCount, out taskCount);
-        }
-
-        while (continueRun)
-        {
-            runInit(entryCount, taskCount);
-            if (singleRun)
+            Action<int, int> runInit = (e, t) =>
             {
-                break;
+                helper.Reset();
+                Log($"Initializing {entryCount} entries using {taskCount} tasks.", false);
+                sw.Start();
+                helper.Initialize(entryCount, taskCount);
+                sw.Stop();
+                Log($" This resulted in {helper.Dict.Count} entries. It took {sw.ElapsedMilliseconds:D2}ms");
+                sw.Reset();
+            };
+
+            bool continueRun = false;
+            if (args?.Length == 2)
+            {
+                continueRun = int.TryParse(args[0], out entryCount) && int.TryParse(args[1], out taskCount);
             }
 
-            continueRun = QueryParameters(out entryCount, out taskCount);
+            bool singleRun = continueRun;
+            if (!continueRun)
+            {
+                continueRun = QueryParameters(out entryCount, out taskCount);
+            }
+
+            while (continueRun)
+            {
+                runInit(entryCount, taskCount);
+                if (singleRun)
+                {
+                    break;
+                }
+
+                continueRun = QueryParameters(out entryCount, out taskCount);
+            }
         }
 
         Log("Execution ended", true, true);

@@ -72,4 +72,43 @@ public sealed class Helper
         m_LastInitializationStatus = new InitializationStatus(sw.Elapsed, entryCount, taskCount, m_Dict.Count);
         return m_LastInitializationStatus;
     }
+
+    public void ExertTheMachine(int count, int limit, bool waitForIt = false)
+    {
+        var tasks = new Task[count];
+        for (int index = 0; index < count; index++)
+        {
+            tasks[index] = CreateLoadTask(limit);
+        }
+        if (waitForIt)
+        {
+            Task.WaitAll(tasks);
+        }
+    }
+
+    private Task CreateLoadTask(int limit = 10000)
+    {
+        return Task.Run(() => CreateLoad(limit));
+    }
+
+    private void CreateLoad(int limit = 10000)
+    {
+        int loopCounter = 0;
+        long num = 0;
+        while (true)
+        {
+            num += Random.Shared.Next(100, 1000);
+            if (num > 1000000000)
+            {
+                num = 0;
+                loopCounter++;
+                if (loopCounter > limit)
+                {
+                    break;
+                }
+            }
+        }
+
+    }
+
 }

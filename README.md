@@ -20,7 +20,7 @@ publish /HighLoad.Api/HighLoad.Api.csproj --os linux --arch x64 /t:PublishContai
 
 ```bash
 # create the image
-docker build -t highload-image:latest -f Dockerfile .
+docker build -t highload-image:latest -f Dockerfile-console .
 
 # just create a container
 docker create --name highload-console highload-image:latest
@@ -65,3 +65,13 @@ docker stop highload-api
 
 docker rm highload-api && docker rmi highload:api
 ```
+
+## Use the green-coding-io website
+
+Go to the [Green Coding Request](https://metrics.green-coding.io/request.html) page.
+
+Enter the following data (use your own name and email address for notification).
+
+![image](https://github.com/user-attachments/assets/3072a081-92a0-420f-9976-40f15f9a32ea)
+
+Click "Submit Software" and wait for the outcome to be listed at the [Repository](https://metrics.green-coding.io/repositories.html) page.
